@@ -1,96 +1,160 @@
 package com.wangtingzheng.plain.network;
 
-
-
+import com.alibaba.fastjson.JSONObject;
 import com.wangtingzheng.plain.converter.InformationConverter;
-
-import javax.net.ssl.HttpsURLConnection;
+import okhttp3.*;
 import java.io.*;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.URLEncoder;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
+/**
+ *
+ */
 public class Post {
 
     public  static void main(String[] args) throws IOException {
-       HashMap<String, String> para;
-       HashMap<String, String> headers;
-       InformationConverter informationConverter = new InformationConverter();
-       para = informationConverter.getItemHasMap("./conf/smms.json", "para");
-       headers = informationConverter.getItemHasMap("./conf/smms.json","header");
-       String resp;
-       resp = performPostCall("https://sm.ms/api/v2/token", para, headers);
-       System.out.println(resp);
+        InformationConverter informationConverter = new InformationConverter();
+        String username = informationConverter.getValue("conf/smms.json", "para", "username");
+        String password = informationConverter.getValue("conf/smms.json", "para", "password");
+        String Authorization = informationConverter.getValue("conf/smms.json", "header", "Authorization");
+
+        HashMap<String,String> para = new HashMap<String, String>();
+        para.put("username" , username);
+        para.put("password", password);
+        HashMap<String,String> header = new HashMap<String, String>();
+        header.put("Authorization", Authorization);
+        HashMap<String,String> body = new HashMap<String, String>();
+        body.put("smfile","/C:/Users/14037/Pictures/github_education.png");
+
+        JSONObject data = upload(header, body);
+        System.out.println(data);
     }
 
-    public static String  performPostCall(String requestURL, HashMap<String, String> postDataParams, HashMap<String, String> header) {
-        URL url;
-        String response = "";
-        try {
-            url = new URL(requestURL);
-
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setReadTimeout(15000);
-            conn.setConnectTimeout(15000);
-            conn.setRequestMethod("POST");
-            Set<Map.Entry<String, String>> set = header.entrySet();
-            for (Map.Entry<String, String> stringStringEntry : set) {
-                Map.Entry<String, String> next;
-                next = stringStringEntry;
-                conn.setRequestProperty(next.getKey(), next.getValue());
-            }
-            conn.setDoInput(true);
-            conn.setDoOutput(true);
-
-
-            OutputStream os = conn.getOutputStream();
-            BufferedWriter writer = new BufferedWriter(
-                    new OutputStreamWriter(os, "UTF-8"));
-            writer.write(getPostDataString(postDataParams));
-
-            writer.flush();
-            writer.close();
-            os.close();
-            int responseCode = conn.getResponseCode();
-            System.out.println(responseCode);
-            if (responseCode == HttpsURLConnection.HTTP_OK) {
-                String line;
-                BufferedReader br=new BufferedReader(new InputStreamReader(conn.getInputStream()));
-                while ((line=br.readLine()) != null) {
-                    response+=line;
-                }
-            }
-            else {
-                response="";
-
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return response;
+    /**
+     * upload image file to sm.ms
+     * @param header put authorization to header hashMap
+     * @param bodyForma put key, and value(image file path)
+     * @return response json object
+     */
+    public static JSONObject upload(HashMap<String,String> header,HashMap<String,String> bodyForma)
+    {
+        HashMap<String,String> para = new HashMap<String, String>();
+        String url = "https://sm.ms/api/v2/upload";
+        return post(url, para, header, bodyForma);
     }
 
-    private static String getPostDataString(HashMap<String, String> params) throws UnsupportedEncodingException{
-        StringBuilder result = new StringBuilder();
+
+    /**
+     * change hashMap parameter to String, make it be addable to url
+     * @param para the parameter hasMap
+     * @return a String value which can be added after url
+     */
+    public static String returnPara(HashMap<String,String> para)
+    {
+        String res = "";
         boolean first = true;
-        for(Map.Entry<String, String> entry : params.entrySet()){
-            if (first)
+        Set<String> set = para.keySet();
+        Iterator<String> iterator = set.iterator();
+        while (iterator.hasNext())
+        {
+            String next ;
+            String one ;
+            next = iterator.next();
+            one = next +"="+para.get(next);
+            if(first)
             {
+                res += "?";
                 first = false;
             }
             else
             {
-                result.append("&");
+                res +="&";
             }
-
-            result.append(URLEncoder.encode(entry.getKey(), "UTF-8"));
-            result.append("=");
-            result.append(URLEncoder.encode(entry.getValue(), "UTF-8"));
+            res += one;
         }
+        return res;
+    }
 
-        return result.toString();
+    /**
+     * change hashMap header to Request.Builder object
+     * @param header the hasHMap header
+     * @return the Request.builder
+     */
+    public static Request.Builder returnHeaders(HashMap<String,String> header)
+    {
+        Request.Builder builder = new Request.Builder();
+        Set<String> set = header.keySet();
+        Iterator<String> iterator = set.iterator();
+        while (iterator.hasNext())
+        {
+            String next;
+            next = iterator.next();
+            builder.addHeader(next, header.get(next));
+        }
+        return builder;
+    }
+
+    /**
+     * change bodyformat hashMap to RequestBody objects
+     * @param bodyFormat the body hashMap, if use none, put("none",""), if form-data, put(key,value)
+     * @return RequestBody
+     */
+    public static RequestBody returnBody(HashMap<String,String> bodyFormat)
+    {
+
+        MediaType mediaType = MediaType.parse("text/plain");
+
+        if(bodyFormat.containsKey("none"))
+        {
+            return RequestBody.create(mediaType, "");
+        }
+        else
+        {
+            MultipartBody.Builder builder = new MultipartBody.Builder().setType(MultipartBody.FORM);
+            Set<String> set = bodyFormat.keySet();
+            Iterator<String> iterator = set.iterator();
+            while (iterator.hasNext())
+            {
+                String next;
+                next = iterator.next();
+                builder = builder.addFormDataPart("smfile",bodyFormat.get(next),
+                    RequestBody.create(MediaType.parse("application/octet-stream"),
+                            new File(bodyFormat.get(next))));
+            }
+            return builder.build();
+        }
+    }
+
+    /**
+     * send a post to a site
+     * @param url the website url
+     * @param para the parameter hashMap, use put to add
+     * @param header the header hasMap, use put to add
+     * @param bodyFormat the body hashMap, if use none, put("none",""), if form-data, put(key,value)
+     * @return a response json object
+     */
+    public static JSONObject post(String url, HashMap<String,String> para, HashMap<String,String> header, HashMap<String,String> bodyFormat)
+    {
+        String wholeUrl = url + returnPara(para);
+        RequestBody body = returnBody(bodyFormat);
+        OkHttpClient client = new OkHttpClient().newBuilder()
+                .build();
+
+        Request.Builder builder = returnHeaders(header);
+        Request request = builder.url(wholeUrl)
+                            .method("POST", body)
+                            .addHeader("accept", "*/*")
+                            .addHeader("connection", "Keep-Alive")
+                            .addHeader("user-agent", "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1)")
+                            .build();
+
+        try {
+            Response response = client.newCall(request).execute();
+            String res = Objects.requireNonNull(response.body()).string();
+            InformationConverter informationConverter = new InformationConverter();
+            return informationConverter.StringToJson(res);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }
