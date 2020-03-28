@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html id="" class="no-touch">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Welcome To My Blog</title>
+    <link rel="stylesheet" href="/assets/main.css" referrerpolicy="no-referrer">
+    <link rel="stylesheet" href="/assets/extension.css">
+
+</head>
+
+<body id="" class="">
+    <header class="site-header" role="banner">
+        <div class="wrapper"><a class="site-title" rel="author" href="/">Home</a>
+            <nav class="site-nav">
+                <input type="checkbox" id="nav-trigger" class="nav-trigger">
+                <label for="nav-trigger">
+                    <span class="menu-icon">
+                        <svg viewBox="0 0 18 15" width="18px" height="15px">
+                            <path
+                                d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z">
+                            </path>
+                        </svg>
+                    </span>
+                </label>
+
+                <div class="trigger">
+                        <a class="page-link" href="./sub/things.html">Things</a>
+                        <a class="page-link"href="./sub/posts.html">Posts</a>
+                        <a class="page-link" href="./sub/tools.html">Tools</a>
+                        <a class="page-link" href="./sub/faq.html">FAQ</a><a
+                        class="page-link" href="./sub/about.html">About</a></div>
+            </nav>
+        </div>
+    </header>
+    <div class="mx-wc-main">
+        <MAIN class="page-content" aria-label="Content">
+            <div class="wrapper mx-wc-selected-elem">
+
+<h2>前言</h2>
+<p>今年在机核网看见了机核网关于<code>GameShell</code>的介绍，感觉很种草，但是因为价格有点贵，就没入手，后来在双十一购入了一台原版的<code>GameShell</code>，打算折腾一下Linux系统。经过漫长的等待，我收到了它，经过几小时的试玩，我发现它的1200mah的电池太不扛用了，所以就萌生了给电池扩容的想法。</p>
+<h2>方案选择</h2>
+<h3>电池</h3>
+<p>当然，我首先想到了机核网的deot话题下的文章。我在<a href="https://www.gcores.com/articles/113887">DEOT 新手入坑指南</a>这篇文章下的评论区得到了第一个线索：</p>
+<blockquote>
+<p>咸鱼关键字：gameshell大容量电池</p>
+</blockquote>
+<p>顺着这个线索，我找到了这条评论说的店铺，但是我发现这家店铺的外壳是不透光的纯白色的，价格要35，算上电池的26，还得加上运费15一共76，经过问询，商家说透明的壳子需要三倍的价格，也就是35*3+15=120，加上电池的23，一共143元，这样的价格有点难以接受，但这次的线索给我带来了一个很好的电池方案。</p>
+<p>电池的话也就是几个参数需要考虑：</p>
+<ul>
+<li>物理的尺寸：如果尺寸太小，gameshell装不下就完了</li>
+<li>电量容量：至少得比1200mah大吧，不然就白改装了，类比手机，电池的合理的容量的范围是3000-5000mah</li>
+<li>电池的电压：gameshell支持3.7v的供电电压，这和很多开发板的设计是类似的</li>
+<li>电池类型：一般用的是锂电池，容量大，尺寸小，之前考虑过gameshell同配的诺基亚BL5C，但是发现这种电池容量上不去，大容量的也有很多人怀疑虚标，遂放弃。</li>
+<li>电池接线：当然，电池应该要连接gameshell的clockworkpi，官方有一条，不过为了保险，尽量选择自带连接线的电池</li>
+</ul>
+<p>闲鱼的这家店铺的外壳虽然不和我意，但它推荐的电池基本符合上面的要求，电池的购买链接在<a href="https://m.tb.cn/h.VZxUpHF">这里</a>， 16元的价格加上8至10元的运费，成本大概是24到26，4200mah的锂电池。记得让店家配个合适的接口。</p>
+<p><img src="https://gd1.alicdn.com/imgextra/i1/3194421185/O1CN01bcZwJs1KclsWv6oYD_!!3194421185.jpg" alt="battery" /></p>
+<h3>外壳</h3>
+<p>我继续寻找我的外壳，我想我的外壳应该有下面的要求：</p>
+<ul>
+<li>
+<p>尺寸：尺寸合适，最好是专门为gameshell定制的</p>
+</li>
+<li>
+<p>材料：应该是3d打印的，最好不要太粗糙</p>
+</li>
+<li>
+<p>透明度：尽量的透明的</p>
+</li>
+</ul>
+<p>我把目光移向了另外一个gameshell爱好者聚集地：<a href="https://forum.clockworkpi.com">gameshell官方论坛</a>，经过一系列搜索，我发现社区的爱好者们早已对gameshell开了🔪，各种改造方案层出不穷，经过一番寻找，我看到了<a href="https://www.tinkercad.com/things/7r3u8jN85GY">它</a>：</p>
+<p><img src="https://csg.tinkercad.com/things/7r3u8jN85GY/t725.png?rev=1567253704928445829&amp;s=953e2ffdfe05aadde7bbec8eff238079&amp;v=1" alt="3d" /></p>
+<p>这是一个gameshell电池扩展外壳，来自gameshell官方论坛用户<a href="https://forum.clockworkpi.com/u/xin">xin</a>，此外，他还设计了多个进阶版，主要是采用了镂空的设计，但是我觉得不美观就没有采用，如果你感兴趣，可以点击<a href="https://www.tinkercad.com/users/hCwfVfujE76-it2amf">此处</a>查看。</p>
+<p>作者在<a href="https://forum.clockworkpi.com/t/swapping-out-battery-for-larger-capacity-li-ion/882/114?u=wangtingzheng">此处</a>也推荐了上文所示的锂电池，还贴出了他改造后的gameshell，可见这个外壳与锂电池是配套的。</p>
+<h3>3D 打印</h3>
+<p>接下来要挑选合适的3D打印厂家了，要求的话大概就下面几点：</p>
+<ul>
+<li>价格：价格尽量实惠，这个不多说</li>
+<li>效果：能打印透明材质，虽然到时候还得把电池盖成黑色，但是透明的壳子的话就有很多的选择空间</li>
+</ul>
+<p>经过一番搜索和试错，最终锁定这一家：<a href="http://www.wenext.cn">未来工厂</a>。上传外壳的stl格式的3D模型，配置如下：</p>
+<ul>
+<li>
+<p>材料: 透明光敏树脂</p>
+</li>
+<li>
+<p>颜色: 透明</p>
+</li>
+<li>
+<p>公差: 200微米或0.2%</p>
+</li>
+</ul>
+<p>上传后平台返回报价是21.04，但是运费比较贵，这个平台只能用顺丰，我这里到黑龙江运费是22元，总共花费43，其他省份运费可自行尝试得知，建议可以多打几个其他件或者多人一起打印，均摊运费。</p>
+<h3>装饰</h3>
+<p>由于锂电池是黄色的，放在gameshell比较抢眼，我选择使用黑色的PVC热缩管进行包装：</p>
+<p><img src="https://gd2.alicdn.com/imgextra/i2/1762028187/O1CN01OAJhTG2ALh69qkTSU_!!1762028187.jpg" alt="pvc" /></p>
+<p>这里可以发挥自己的想象力，会画画的同学们甚至可以在电池外画一些图案，或者可以贴身gameshell自带的官方贴纸，这就属于装饰性的功能了，可有可无，不影响使用。买的是70MM(长度1m)的，但到货时发现电池塞不下去，有点尴尬，估计错了尺寸，要用它的同学尺寸可以选大一些的，长度无所谓，够用。包邮，花费6元。</p>
+<p>由于这个PVC器件个大电商网站上有很多，这里就不放连接了，直接搜索<code>PVC热缩套管</code>即可。</p>
+<h3>资费总结</h3>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>单价</th>
+<th>运费</th>
+<th>总计</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>锂电池</td>
+<td>16</td>
+<td>10</td>
+<td>26</td>
+</tr>
+<tr>
+<td>外壳</td>
+<td>21</td>
+<td>22</td>
+<td>43</td>
+</tr>
+<tr>
+<td>PVC</td>
+<td>6</td>
+<td>0</td>
+<td>6</td>
+</tr>
+</tbody>
+</table>
+<p>总计75元，比闲鱼上不透明的还略便宜，比透明的便宜很多，还是不镂空的，价格已经非常合适了。</p>
+<h2>拼装</h2>
+<p>经过漫长的等待，所有的配件已全部到齐，开始拼装，拼装的过程没什么好注意的，尺寸也都刚刚好。</p>
+<p>我先从PVC上裁切一块，放入电池外壳中，发现刚刚好，然后我从官方贴纸中选择了一张长方形的大贴纸，粘贴到了PVC上，贴纸朝外：</p>
+<p><img src="https://i.loli.net/2020/01/12/XtRowUe9sq63npi.jpg" alt="IMG_20200112_172631.jpg" /></p>
+<p>再把电池放入电池外壳，合上外壳：</p>
+<p><img src="https://i.loli.net/2020/01/12/ml9wzBbvcxjQ5FU.jpg" alt="IMG_20200112_172729.jpg" />
+<img src="https://i.loli.net/2020/01/12/57sGHBe1pV9SYIz.jpg" alt="IMG_20200112_172949.jpg" /></p>
+<p>到此，gameshell的电池扩展改装算是完成了，后面我也没进行专门的测试，但是负责任地说，改装后的gameshell的续航提升明显，在使用过程中我感受不到明显的电量消耗，常常是我玩厌了gameshell的电量还没用完，估计普通使用至少5小时，具体的数据没有测试，大家可以改装完成后自行测试。</p>
+<h2>参考</h2>
+<ul>
+<li><a href="https://www.gcores.com/articles/113887">DEOT 新手入坑指南：机核网</a></li>
+<li><a href="https://forum.clockworkpi.com/t/swapping-out-battery-for-larger-capacity-li-ion/882">Swapping out Battery for Larger Capacity Li-Ion?：clockworkpi forum</a></li>
+</ul>
+
+</div>
+</MAIN>
+
+</div>
+
+</main>
+<footer class="site-footer h-card">
+<data class="u-url" href="/"></data>
+
+<div class="wrapper">
+
+    <h2 class="footer-heading">wangtingzheng.com</h2>
+    <div>
+        This work is licensed
+        under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons
+            Attribution-NonCommercial-ShareAlike 4.0 International License</a>.
+        <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><br /><img
+                alt="Creative Commons License" style="border-width:0"
+                src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a>
+    </div>
+    <br />
+    <div class="footer-col-wrapper">
+        <div class="footer-col footer-col-1">
+            <ul class="contact-list">
+                <li class="p-name">&copy; WangTingZheng</li>
+                <li><a href="/sub/impressum.html">Impressum</a></li>
+                <li><a class="u-email" href="mailto:web-contact@p3dt.net">wangtingzheng@outlook.com</li>
+            </ul>
+        </div>
+
+        <div class="footer-col footer-col-2">
+            <ul class="social-media-list">
+                <li><a href="https://space.bilibili.com/11787292"><svg
+                            class="svg-icon grey">
+                            <use xlink:href="/assets/minima-social-icons.svg#bilibili"></use>
+                        </svg><span class="username">&nbsp;一只硬核少年</span></a></li>
+                <li><a href="https://www.zhihu.com/people/wang-ting-zheng-45"><svg class="svg-icon grey">
+                            <use xlink:href="/assets/minima-social-icons.svg#instagram"></use>
+                        </svg> <span class="username">一只硬核少年</span></a></li>
+                <li><a href="https://github.com/WangTingZheng"><svg class="svg-icon grey">
+                            <use xlink:href="/assets/minima-social-icons.svg#github"></use>
+                        </svg> <span class="username">WangTingZheng</span></a></li>
+                <li><a href="https://www.gcores.com/users/184587"><svg class="svg-icon grey">
+                            <use xlink:href="/assets/minima-social-icons.svg#twitter"></use>
+                        </svg> <span class="username">Engou</span></a></li>
+            </ul>
+        </div>
+
+        <div class="footer-col footer-col-3">
+            <p>👨‍🔬 I&#39;m a student of Iot: Intnet of things.<br>☕ I write Java code, develop embedded device.</br>
+                👩‍💻At the same time, I &#39;m a GameSheller and Minecraft Mod developer</p>
+        </div>
+    </div>
+</div>
+</footer>
+
+</body>
+
+</html>
